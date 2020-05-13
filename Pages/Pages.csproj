@@ -119,8 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs" />
+    <Compile Include="ContainerExtension.cs" />
     <Compile Include="Google\GoogleMainPage.cs" />
     <Compile Include="Google\GoogleSearchResultPage.cs" />
+    <Compile Include="IBasePage.cs" />
     <Compile Include="Installer\PagesInstaller.cs" />
     <Compile Include="PageNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

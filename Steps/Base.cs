@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 
 namespace Steps
 {
-    public abstract class Base
+  public abstract class Base
     {
         protected static IWebDriver _webDriver = null;
         protected FeatureContext _featureContext = null;

@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-    public sealed class GoogleSearchResultPage : BasePage
+    public sealed class GoogleSearchResultPage : BasePage, IBasePage
     {
         // put element description here
         [FindsBy(How = How.XPath, Using = "//div[@id='rso']/div[@class='g']")]
@@ -16,7 +16,7 @@ namespace Pages.Google
 
             _collections = new Dictionary<string, IWebElement[]>()
             {
-                { "Search string", searchResults },
+                { "Search results", searchResults }
             };
         }
     }
