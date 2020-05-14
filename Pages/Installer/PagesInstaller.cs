@@ -6,24 +6,24 @@ using Pages.SpecFlow;
 
 namespace Pages.Installer
 {
-    public class PagesInstaller : IWindsorInstaller
+  public class PagesInstaller : IWindsorInstaller
+  {
+    public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IBasePage>()
-                                        .ImplementedBy<GoogleMainPage>()
-                                        .Named(PageNames.GoogleMainPage)
-                                        .LifestyleSingleton());
+      container.Register(Component.For<IBasePage>()
+                                  .ImplementedBy<GoogleMainPage>()
+                                  .Named(PageNames.GoogleMainPage)
+                                  .LifestyleSingleton());
 
-            container.Register(Component.For<IBasePage>()
-                                        .ImplementedBy<GoogleSearchResultPage>()
-                                        .Named(PageNames.GoogleSearchResultPage)
-                                        .LifestyleSingleton());
+      container.Register(Component.For<IBasePage>()
+                                  .ImplementedBy<GoogleSearchResultPage>()
+                                  .Named(PageNames.GoogleSearchResultPage)
+                                  .LifestyleSingleton());
 
-            container.Register(Component.For<IBasePage>()
-                                        .ImplementedBy<SpecflowMainPage>()
-                                        .Named(PageNames.SpecFlowMainPage)
-                                        .LifestyleSingleton());
-        }
+      container.Register(Component.For<IBasePage>()
+                                  .ImplementedBy<SpecflowMainPage>()
+                                  .Named(PageNames.SpecFlowMainPage)
+                                  .LifestyleSingleton());
     }
+  }
 }

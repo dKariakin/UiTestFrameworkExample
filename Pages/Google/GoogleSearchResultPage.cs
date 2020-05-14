@@ -4,20 +4,20 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-    public sealed class GoogleSearchResultPage : BasePage, IBasePage
+  public sealed class GoogleSearchResultPage : BasePage, IBasePage
+  {
+    // put element description here
+    [FindsBy(How = How.XPath, Using = "//div[@id='rso']/div[@class='g']")]
+    public IWebElement[] searchResults;
+
+    public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver)
     {
-        // put element description here
-        [FindsBy(How = How.XPath, Using = "//div[@id='rso']/div[@class='g']")]
-        public IWebElement[] searchResults;
+      PageFactory.InitElements(_webDriver, this);
 
-        public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver)
-        {
-            PageFactory.InitElements(_webDriver, this);
-
-            _collections = new Dictionary<string, IWebElement[]>()
+      _collections = new Dictionary<string, IWebElement[]>()
             {
                 { "Search results", searchResults }
             };
-        }
     }
+  }
 }
