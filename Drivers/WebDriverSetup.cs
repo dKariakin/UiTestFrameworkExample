@@ -37,10 +37,10 @@ namespace Drivers
       string driverPath = AppDomain.CurrentDomain.BaseDirectory;
       do
       {
-        driverPath = Directory.GetParent(driverPath).FullName;
+        driverPath = Directory.GetParent(Path.GetFullPath(driverPath)).FullName;
       }
-      while (!Directory.Exists("Drivers"));
-      driverPath += Path.Combine("Drivers");
+      while (!Directory.Exists(Path.Combine(driverPath, "Drivers")));
+      driverPath = Path.Combine(driverPath, "Drivers", "WebDriver");
 
       return driverPath;
     }
