@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace Drivers
 {
-  public class WebDriverSetup
+  public class WebDriverSetup : IWebDriverSetup
   {
     private static readonly IWebDriver _webDriver = null;
+    private readonly string driverName = ConfigurationManager.AppSettings["driver"];
 
-    public static IWebDriver GetWebDriver(string driverName)
+    public IWebDriver GetWebDriver()
     {
-      return _webDriver ?? WebDriverInitialize(driverName);
+      return _webDriver ?? WebDriverInitialize();
     }
 
-    public static IWebDriver WebDriverInitialize(string driverName)
+    public IWebDriver WebDriverInitialize()
     {
       string driverPath = GetDriverDirectory();
 
@@ -23,9 +25,11 @@ namespace Drivers
         case "chrome":
           ChromeOptions options = new ChromeOptions()
           {
-            AcceptInsecureCertificates = false
+            AcceptInsecureCertificates = false,
+            PageLoadStrategy = PageLoadStrategy.Eager,
+            UnhandledPromptBehavior = UnhandledPromptBehavior.Ignore
           };
-          options.AddArgument("start-maximized");
+          options.AddArguments("start-maximized");
           return new ChromeDriver(driverPath, options);
         default:
           throw new NotImplementedException($"{driverName} is an unknown web driver");

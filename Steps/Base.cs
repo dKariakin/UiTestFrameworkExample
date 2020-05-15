@@ -13,11 +13,11 @@ namespace Steps
 
     public Base(FeatureContext featureContext, ScenarioContext scenarioContext)
     {
-      string driverName = ConfigurationManager.AppSettings["driver"];
+      
       _scenarioContext = scenarioContext;
       _featureContext = featureContext;
 
-      _webDriver = WebDriverSetup.GetWebDriver(driverName);
+      _webDriver = new WebDriverSetup().GetWebDriver();
     }
   }
 }

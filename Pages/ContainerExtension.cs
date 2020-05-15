@@ -8,11 +8,11 @@ namespace Extensions
 {
   public static class ContainerExtension
   {
-    public static IBasePage GetFromFactory(this ScenarioContext context, string pageName, IWebDriver webDriver)
+    public static IBasePage GetFromFactory(this ScenarioContext context, string pageName)
     {
       if (!context.TryGetValue(PagesInstaller.pagesContainer, out WindsorContainer container))
       {
-        PagesInstaller.CreatePages(context, webDriver);
+        container = PagesInstaller.CreatePages(context);
       }
 
       return container.Resolve<IBasePage>(key: pageName);
