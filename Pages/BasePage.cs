@@ -11,7 +11,7 @@ namespace Pages
     protected WebDriverWait _driverWaiter;
     protected Dictionary<string, IWebElement> _elements;
     protected Dictionary<string, IWebElement[]> _collections;
-    protected string pageUrl;
+    protected string _pageUrl;
 
     public BasePage(IWebDriver webDriver)
     {
@@ -44,7 +44,7 @@ namespace Pages
 
     public void OpenPage()
     {
-      _webDriver.Navigate().GoToUrl(pageUrl);
+      _webDriver.Navigate().GoToUrl(_pageUrl);
     }
   }
 }

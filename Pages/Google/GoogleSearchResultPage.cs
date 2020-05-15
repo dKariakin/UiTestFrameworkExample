@@ -13,11 +13,10 @@ namespace Pages.Google
     public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver)
     {
       PageFactory.InitElements(_webDriver, this);
-
       _collections = new Dictionary<string, IWebElement[]>()
-            {
-                { "Search results", searchResults }
-            };
+      {
+        { "Search results", searchResults }
+      };
     }
   }
 }

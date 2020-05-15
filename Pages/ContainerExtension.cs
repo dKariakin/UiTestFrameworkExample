@@ -1,21 +1,19 @@
 ﻿using Castle.Windsor;
+using OpenQA.Selenium;
 using Pages;
+using Pages.Installer;
 using TechTalk.SpecFlow;
 
 namespace Extensions
 {
   public static class ContainerExtension
   {
-    private static WindsorContainer container;
-
-    public static IBasePage GetFromFactory(this ScenarioContext context, string pageName)
+    public static IBasePage GetFromFactory(this ScenarioContext context, string pageName, IWebDriver webDriver)
     {
-      if (container == null)
+      if (!context.TryGetValue(PagesInstaller.pagesContainer, out WindsorContainer container))
       {
-        container = new WindsorContainer();
-        container.ResolveAll<IBasePage>();
+        PagesInstaller.CreatePages(context, webDriver);
       }
-      context.Add(pageName, container.Resolve<IBasePage>(key: pageName));
 
       return container.Resolve<IBasePage>(key: pageName);
     }

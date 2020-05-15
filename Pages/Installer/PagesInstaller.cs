@@ -1,29 +1,40 @@
 ﻿using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using OpenQA.Selenium;
 using Pages.Google;
 using Pages.SpecFlow;
+using TechTalk.SpecFlow;
 
 namespace Pages.Installer
 {
-  public class PagesInstaller : IWindsorInstaller
+  public class PagesInstaller
   {
-    public void Install(IWindsorContainer container, IConfigurationStore store)
+    private static WindsorContainer _container;
+    public static string pagesContainer => "pagesContainer";
+
+    public static void CreatePages(ScenarioContext scenarioContext, IWebDriver webDriver)
     {
-      container.Register(Component.For<IBasePage>()
+      _container = _container ?? new WindsorContainer();
+
+      _container.Register(Component.For<IBasePage>()
                                   .ImplementedBy<GoogleMainPage>()
                                   .Named(PageNames.GoogleMainPage)
-                                  .LifestyleSingleton());
+                                  .DependsOn(Dependency.OnValue("webDriver", webDriver))
+                                  .LifestylePerThread());
 
-      container.Register(Component.For<IBasePage>()
+      _container.Register(Component.For<IBasePage>()
                                   .ImplementedBy<GoogleSearchResultPage>()
                                   .Named(PageNames.GoogleSearchResultPage)
-                                  .LifestyleSingleton());
+                                  .DependsOn(Dependency.OnValue("webDriver", webDriver))
+                                  .LifestylePerThread());
 
-      container.Register(Component.For<IBasePage>()
+      _container.Register(Component.For<IBasePage>()
                                   .ImplementedBy<SpecflowMainPage>()
                                   .Named(PageNames.SpecFlowMainPage)
-                                  .LifestyleSingleton());
+                                  .DependsOn(Dependency.OnValue("webDriver", webDriver))
+                                  .LifestylePerThread());
+
+      scenarioContext.Add(pagesContainer, _container);
     }
   }
 }

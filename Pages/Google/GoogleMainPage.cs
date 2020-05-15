@@ -14,13 +14,12 @@ namespace Pages.Google
     public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
     {
       PageFactory.InitElements(_webDriver, this);
-      pageUrl = "www.google.com";
-
+      _pageUrl = "www.google.com";
       _elements = new Dictionary<string, IWebElement>()
-            {
-                { "Search string", SearchString },
-                { "Search button", SearchButton }
-            };
+      {
+        { "Search string", SearchString },
+        { "Search button", SearchButton }
+      };
     }
   }
 }
