@@ -1,23 +1,32 @@
-﻿using System.Configuration;
+﻿using System;
 using Drivers;
+using Extensions.Pages.Base;
+using Extensions.Pages.Factory;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Pages.Google;
+using Pages.SpecFlow;
 
 namespace Steps
 {
   public abstract class Base
   {
     protected static IWebDriver _webDriver = null;
-    protected FeatureContext _featureContext = null;
-    protected ScenarioContext _scenarioContext = null;
+    protected Lazy<PagesFactory> _pages = null;
 
-    public Base(FeatureContext featureContext, ScenarioContext scenarioContext)
+    public Base()
     {
-      
-      _scenarioContext = scenarioContext;
-      _featureContext = featureContext;
-
       _webDriver = new WebDriverSetup().GetWebDriver();
+      _pages = CreatePages();
+    }
+
+    private Lazy<PagesFactory> CreatePages()
+    {
+      return new Lazy<PagesFactory>(() => new PagesFactory(new BasePage[]
+      {
+        new GoogleMainPage(_webDriver),
+        new GoogleSearchResultPage(_webDriver),
+        new SpecflowMainPage(_webDriver)
+      }));
     }
   }
 }

@@ -118,12 +118,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePage.cs" />
-    <Compile Include="ContainerExtension.cs" />
     <Compile Include="Google\GoogleMainPage.cs" />
     <Compile Include="Google\GoogleSearchResultPage.cs" />
-    <Compile Include="IBasePage.cs" />
-    <Compile Include="Installer\PagesInstaller.cs" />
     <Compile Include="PageNames.cs" />
     <Compile Include="SpecFlow\SpecflowMainPage.cs" />
   </ItemGroup>
@@ -135,6 +131,10 @@
     <ProjectReference Include="..\Drivers\Drivers.csproj">
       <Project>{E20BAF8C-2406-4A0E-8B8E-C0AB55EB7E97}</Project>
       <Name>Drivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{86F64C17-63D8-47A0-88ED-CE8F302A45B0}</Project>
+      <Name>Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

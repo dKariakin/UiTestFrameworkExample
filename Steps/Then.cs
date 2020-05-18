@@ -6,11 +6,6 @@ namespace Steps
   [Binding]
   public sealed class Then : Base
   {
-    public Then(FeatureContext featureContext, ScenarioContext scenarioContext) : base(featureContext, scenarioContext)
-    {
-
-    }
-
     [Then(@"([a-zA-Z\s]+) is opened")]
     public void RequestedPageIsOpened(string expectedPage)
     {

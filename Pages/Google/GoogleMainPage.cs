@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Extensions.Pages.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-  public sealed class GoogleMainPage : BasePage, IBasePage
+  public sealed class GoogleMainPage : BasePage
   {
     [FindsBy(How = How.Name, Using = "q")]
     public IWebElement SearchString;
@@ -15,6 +16,7 @@ namespace Pages.Google
     {
       PageFactory.InitElements(_webDriver, this);
       _pageUrl = "www.google.com";
+      _pageObjectName = PageNames.GoogleMainPage;
       _elements = new Dictionary<string, IWebElement>()
       {
         { "Search string", SearchString },

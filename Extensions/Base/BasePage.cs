@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Pages
+namespace Extensions.Pages.Base
 {
   public abstract class BasePage : IBasePage
   {
@@ -12,6 +12,7 @@ namespace Pages
     protected Dictionary<string, IWebElement> _elements;
     protected Dictionary<string, IWebElement[]> _collections;
     protected string _pageUrl;
+    protected string _pageObjectName;
 
     public BasePage(IWebDriver webDriver)
     {
@@ -45,6 +46,11 @@ namespace Pages
     public void OpenPage()
     {
       _webDriver.Navigate().GoToUrl(_pageUrl);
+    }
+
+    public string GetPageObjectName()
+    {
+      return _pageObjectName;
     }
   }
 }

@@ -114,13 +114,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\packages.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Drivers\Drivers.csproj">
       <Project>{E20BAF8C-2406-4A0E-8B8E-C0AB55EB7E97}</Project>
       <Name>Drivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{86F64C17-63D8-47A0-88ED-CE8F302A45B0}</Project>
+      <Name>Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pages\Pages.csproj">
       <Project>{BDED5328-EA5E-4A5E-B82C-1FB14CF90A32}</Project>

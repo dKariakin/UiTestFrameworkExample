@@ -6,7 +6,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace Drivers
 {
-  public class WebDriverSetup : IWebDriverSetup
+  public class WebDriverSetup
   {
     private static readonly IWebDriver _webDriver = null;
     private readonly string driverName = ConfigurationManager.AppSettings["driver"];

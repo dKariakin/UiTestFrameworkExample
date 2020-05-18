@@ -1,4 +1,4 @@
-﻿namespace Pages
+﻿namespace Extensions.Pages.Base
 {
   public interface IBasePage
   {
@@ -6,5 +6,6 @@
     void OpenPage();
     void ClickCollectionElement(string collectionnName, int elementOrder);
     void SendText(string elementName, string text);
+    string GetPageObjectName();
   }
 }
