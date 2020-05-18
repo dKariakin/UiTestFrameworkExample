@@ -15,7 +15,7 @@ namespace Pages.Google
     public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
     {
       PageFactory.InitElements(_webDriver, this);
-      _pageUrl = "www.google.com";
+      _pageUrl = "http://www.google.com";
       _pageObjectName = PageNames.GoogleMainPage;
       _elements = new Dictionary<string, IWebElement>()
       {
