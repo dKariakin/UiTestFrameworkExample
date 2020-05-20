@@ -5,16 +5,15 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Extensions.Pages.Base
 {
-  public abstract class BasePage : IBasePage
+  public abstract class PagePrototype : IPagePrototype
   {
     protected IWebDriver _webDriver;
     protected WebDriverWait _driverWaiter;
     protected Dictionary<string, IWebElement> _elements;
-    protected Dictionary<string, IWebElement[]> _collections;
     protected string _pageUrl;
     protected string _pageObjectName;
 
-    public BasePage(IWebDriver webDriver)
+    public PagePrototype(IWebDriver webDriver)
     {
       _webDriver = webDriver;
       _driverWaiter = new WebDriverWait(_webDriver, new TimeSpan(0, 0, 3));
@@ -26,35 +25,51 @@ namespace Extensions.Pages.Base
     /// <param name="elementName">Element name in _elements</param>
     private void Wait(string elementName)
     {
-      _driverWaiter.Until(_ => _elements[elementName].Displayed);
+      if (!_driverWaiter.Until(_ => GetElement(elementName).Displayed))
+      {
+        throw new ElementNotVisibleException($"Couldn't find {elementName} on {GetPageObjectName()}");
+      }
     }
 
-    /// <summary>
-    /// Wait until web element in a collection is loaded
-    /// </summary>
-    /// <param name="collectionName">Name of a collection of elements</param>
-    /// <param name="elementOrder">Order of an element we are interested in</param>
-    public void ClickCollectionElement(string collectionName, int elementOrder = 0)
+    private IWebElement GetElement(string elementName)
     {
-      _driverWaiter.Until(_ => _collections[collectionName][elementOrder].Displayed);
-      _collections[collectionName][elementOrder - 1].Click();
+      if (_elements.ContainsKey(elementName.ToLower()))
+      {
+        return _elements[elementName.ToLower()];
+      }
+      else
+      {
+        throw new NullReferenceException($"Element {elementName} on page {GetPageObjectName()} is undefined");
+      }
     }
 
     public void Click(string elementName)
     {
       Wait(elementName);
-      _elements[elementName].Click();
+      GetElement(elementName).Click();
     }
 
     public void SendText(string elementName, string text)
     {
       Wait(elementName);
-      _elements[elementName].SendKeys(text);
+      GetElement(elementName).SendKeys(text);
+    }
+
+    public Uri GetPageUrl()
+    {
+      try
+      {
+        return new Uri(_pageUrl);
+      }
+      catch (NullReferenceException)
+      {
+        throw new NullReferenceException($"{GetPageObjectName()} url is undefined");
+      }
     }
 
     public void OpenPage()
     {
-      _webDriver.Navigate().GoToUrl(new Uri(_pageUrl));
+      _webDriver.Navigate().GoToUrl(GetPageUrl());
     }
 
     /// <summary>

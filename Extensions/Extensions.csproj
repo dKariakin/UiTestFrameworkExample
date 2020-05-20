@@ -45,8 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BasePage.cs" />
-    <Compile Include="Base\IBasePage.cs" />
+    <Compile Include="Base\PagePrototype.cs" />
+    <Compile Include="Base\IPagePrototype.cs" />
     <Compile Include="Factory\PagesFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

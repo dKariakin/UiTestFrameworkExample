@@ -1,5 +1,4 @@
-﻿using System;
-using Drivers;
+﻿using Drivers;
 using Extensions.Pages.Base;
 using Extensions.Pages.Factory;
 using OpenQA.Selenium;
@@ -11,7 +10,7 @@ namespace Steps
   public abstract class Base
   {
     protected static IWebDriver _webDriver = null;
-    protected Lazy<PagesFactory> _pages = null;
+    protected PagesFactory _pages = null;
 
     public Base()
     {
@@ -19,14 +18,14 @@ namespace Steps
       _pages = CreatePages();
     }
 
-    private Lazy<PagesFactory> CreatePages()
+    private PagesFactory CreatePages()
     {
-      return new Lazy<PagesFactory>(() => new PagesFactory(new BasePage[]
+      return new PagesFactory(new IPagePrototype[]
       {
         new GoogleMainPage(_webDriver),
         new GoogleSearchResultPage(_webDriver),
         new SpecflowMainPage(_webDriver)
-      }));
+      });
     }
   }
 }

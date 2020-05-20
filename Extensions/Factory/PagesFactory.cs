@@ -1,23 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Extensions.Pages.Base;
 
 namespace Extensions.Pages.Factory
 {
   public class PagesFactory
   {
-    private Dictionary<string, BasePage> _pages;
+    private static Dictionary<string, IPagePrototype> _pages;
     
-    public PagesFactory(BasePage[] basePages)
+    public PagesFactory(IPagePrototype[] basePages)
     {
-      foreach(BasePage page in basePages)
+      _pages = new Dictionary<string, IPagePrototype>();
+
+      foreach(IPagePrototype page in basePages)
       {
         _pages.Add(page.GetPageObjectName(), page);
       }
     }
 
-    public BasePage GetPage(string pageName)
+    public IPagePrototype GetPage(string pageName)
     {
-      return _pages[pageName];
+      if(_pages.ContainsKey(pageName))
+      {
+        return _pages[pageName];
+      }
+      else
+      {
+        throw new NullReferenceException($"Page {pageName} is undefined");
+      }
     }
   }
 }

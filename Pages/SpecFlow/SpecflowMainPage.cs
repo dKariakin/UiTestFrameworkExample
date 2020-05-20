@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.SpecFlow
 {
-  public sealed class SpecflowMainPage : BasePage
+  public sealed class SpecflowMainPage : PagePrototype, IPagePrototype
   {
     // In our example no elements are needed here
     public SpecflowMainPage(IWebDriver webDriver) : base(webDriver)

@@ -5,11 +5,14 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-  public sealed class GoogleMainPage : BasePage
+  public sealed class GoogleMainPage : PagePrototype, IPagePrototype
   {
     [FindsBy(How = How.Name, Using = "q")]
+    [CacheLookup]
     public IWebElement SearchString;
-    [FindsBy(How = How.XPath, Using = "(//input[@value='Google Search'])[2]")]
+
+    [FindsBy(How = How.XPath, Using = "(//input[contains(@value, 'Google')])[2]")]
+    [CacheLookup]
     public IWebElement SearchButton;
 
     public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
@@ -19,8 +22,8 @@ namespace Pages.Google
       _pageObjectName = PageNames.GoogleMainPage;
       _elements = new Dictionary<string, IWebElement>()
       {
-        { "Search string", SearchString },
-        { "Search button", SearchButton }
+        { "search string", SearchString },
+        { "search button", SearchButton }
       };
     }
   }

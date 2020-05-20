@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drivers", "Drivers\Drivers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{86F64C17-63D8-47A0-88ED-CE8F302A45B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3D98F735-093C-414D-AE41-FC9F009F843A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A1975EEB-3162-4F8F-A41B-F9361E66C105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDED5328-EA5E-4A5E-B82C-1FB14CF90A32} = {3D98F735-093C-414D-AE41-FC9F009F843A}
+		{4B42CBF8-3646-4252-AD80-A3E767F8DA45} = {3D98F735-093C-414D-AE41-FC9F009F843A}
+		{DA0EE811-89C3-477A-9B1D-C2E7F6EE234A} = {3D98F735-093C-414D-AE41-FC9F009F843A}
+		{E20BAF8C-2406-4A0E-8B8E-C0AB55EB7E97} = {A1975EEB-3162-4F8F-A41B-F9361E66C105}
+		{86F64C17-63D8-47A0-88ED-CE8F302A45B0} = {A1975EEB-3162-4F8F-A41B-F9361E66C105}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C8CE2A0-4E62-4704-B554-0A6260A2CB1A}
