@@ -9,11 +9,11 @@ namespace Extensions.Pages.Base
   {
     protected IWebDriver _webDriver;
     protected WebDriverWait _driverWaiter;
-    protected Dictionary<string, IWebElement> _elements;
-    protected string _pageUrl;
-    protected string _pageObjectName;
+    private Dictionary<string, IWebElement> _elements;
+    private string _pageUrl;
+    private string _pageObjectName;
 
-    public PagePrototype(IWebDriver webDriver)
+    protected PagePrototype(IWebDriver webDriver)
     {
       _webDriver = webDriver;
       _driverWaiter = new WebDriverWait(_webDriver, new TimeSpan(0, 0, 3));
@@ -22,8 +22,8 @@ namespace Extensions.Pages.Base
     /// <summary>
     /// Wait until web element is loaded
     /// </summary>
-    /// <param name="elementName">Element name in _elements</param>
-    private void Wait(string elementName)
+    /// <param name="elementName">Element name in element dictionary</param>
+    protected virtual void Wait(string elementName)
     {
       if (!_driverWaiter.Until(_ => GetElement(elementName).Displayed))
       {
@@ -31,7 +31,24 @@ namespace Extensions.Pages.Base
       }
     }
 
-    private IWebElement GetElement(string elementName)
+    /// <summary>
+    /// Initialize dictionary of elements with collection of those
+    /// </summary>
+    /// <param name="elementCollection">Element name - element</param>
+    protected void SetElements((string, IWebElement)[] elementCollection)
+    {
+      if (_elements == null)
+      {
+        _elements = new Dictionary<string, IWebElement>();
+      }
+
+      foreach ((string, IWebElement) element in elementCollection)
+      {
+        _elements.Add(element.Item1, element.Item2);
+      }
+    }
+
+    protected IWebElement GetElement(string elementName)
     {
       if (_elements.ContainsKey(elementName.ToLower()))
       {
@@ -43,19 +60,7 @@ namespace Extensions.Pages.Base
       }
     }
 
-    public void Click(string elementName)
-    {
-      Wait(elementName);
-      GetElement(elementName).Click();
-    }
-
-    public void SendText(string elementName, string text)
-    {
-      Wait(elementName);
-      GetElement(elementName).SendKeys(text);
-    }
-
-    public Uri GetPageUrl()
+    protected Uri GetPageUrl()
     {
       try
       {
@@ -67,17 +72,22 @@ namespace Extensions.Pages.Base
       }
     }
 
-    public void OpenPage()
-    {
-      _webDriver.Navigate().GoToUrl(GetPageUrl());
-    }
-
     /// <summary>
     /// Get current page object name
     /// </summary>
     public string GetPageObjectName()
     {
       return _pageObjectName;
+    }
+
+    protected void SetPageObjectName(string name)
+    {
+      _pageObjectName = name;
+    }
+
+    protected void SetPageUrl(string url)
+    {
+      _pageUrl = url;
     }
   }
 }

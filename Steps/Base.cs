@@ -1,5 +1,5 @@
-﻿using Drivers;
-using Extensions.Pages.Base;
+﻿using Actions;
+using Drivers;
 using Extensions.Pages.Factory;
 using OpenQA.Selenium;
 using Pages.Google;
@@ -20,7 +20,7 @@ namespace Steps
 
     private PagesFactory CreatePages()
     {
-      return new PagesFactory(new IPagePrototype[]
+      return new PagesFactory(new IBasicActions[]
       {
         new GoogleMainPage(_webDriver),
         new GoogleSearchResultPage(_webDriver),

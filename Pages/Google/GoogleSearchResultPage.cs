@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Actions;
 using Extensions.Pages.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-  public sealed class GoogleSearchResultPage : PagePrototype, IPagePrototype
+  public sealed class GoogleSearchResultPage : BasicActions, IPagePrototype, IBasicActions
   {
     // put element description here
     [FindsBy(How = How.XPath, Using = "//div[@id='res']//div[@class='r']//h3")]
@@ -14,11 +14,10 @@ namespace Pages.Google
     public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver)
     {
       PageFactory.InitElements(_webDriver, this);
-      _pageObjectName = PageNames.GoogleSearchResultPage;
-      _elements = new Dictionary<string, IWebElement>()
-      {
-        { "search result", searchResults }
-      };
+      SetPageObjectName(PageNames.GoogleSearchResultPage);
+      SetElements(new (string, IWebElement)[]
+        { ("search result", searchResults) }
+      );
     }
   }
 }

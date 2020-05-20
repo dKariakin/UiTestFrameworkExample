@@ -37,9 +37,6 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\Packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\Packages\Castle.Windsor.5.0.1\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\Packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -117,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Actions\Actions.csproj">
+      <Project>{A34900E1-9D5E-4B31-9133-97AF6CDEB504}</Project>
+      <Name>Actions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Drivers\Drivers.csproj">
       <Project>{E20BAF8C-2406-4A0E-8B8E-C0AB55EB7E97}</Project>
       <Name>Drivers</Name>
@@ -124,6 +125,10 @@
     <ProjectReference Include="..\Extensions\Extensions.csproj">
       <Project>{86F64C17-63D8-47A0-88ED-CE8F302A45B0}</Project>
       <Name>Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PagesFactory\PagesFactory.csproj">
+      <Project>{9CF49529-7231-40DA-B31A-B2D7C4A68E1E}</Project>
+      <Name>PagesFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pages\Pages.csproj">
       <Project>{BDED5328-EA5E-4A5E-B82C-1FB14CF90A32}</Project>

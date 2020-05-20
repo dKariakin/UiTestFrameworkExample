@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Actions;
 using Extensions.Pages.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-  public sealed class GoogleMainPage : PagePrototype, IPagePrototype
+  public sealed class GoogleMainPage : BasicActions, IPagePrototype, IBasicActions
   {
     [FindsBy(How = How.Name, Using = "q")]
     [CacheLookup]
@@ -18,13 +18,14 @@ namespace Pages.Google
     public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
     {
       PageFactory.InitElements(_webDriver, this);
-      _pageUrl = "http://www.google.com";
-      _pageObjectName = PageNames.GoogleMainPage;
-      _elements = new Dictionary<string, IWebElement>()
+      SetPageUrl("http://www.google.com");
+      SetPageObjectName(PageNames.GoogleMainPage);
+      
+      SetElements(new (string, IWebElement)[]
       {
-        { "search string", SearchString },
-        { "search button", SearchButton }
-      };
+        ("search string", SearchString),
+        ("search button", SearchButton)
+      });
     }
   }
 }

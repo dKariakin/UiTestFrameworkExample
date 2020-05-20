@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using Extensions.Pages.Base;
+using Actions;
 
 namespace Extensions.Pages.Factory
 {
   public class PagesFactory
   {
-    private static Dictionary<string, IPagePrototype> _pages;
+    private static Dictionary<string, IBasicActions> _pages;
     
-    public PagesFactory(IPagePrototype[] basePages)
+    public PagesFactory(IBasicActions[] basePages)
     {
-      _pages = new Dictionary<string, IPagePrototype>();
+      _pages = new Dictionary<string, IBasicActions>();
 
-      foreach(IPagePrototype page in basePages)
+      foreach(IBasicActions page in basePages)
       {
         _pages.Add(page.GetPageObjectName(), page);
       }
     }
 
-    public IPagePrototype GetPage(string pageName)
+    public IBasicActions GetPage(string pageName)
     {
       if(_pages.ContainsKey(pageName))
       {
