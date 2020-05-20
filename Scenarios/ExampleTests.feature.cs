@@ -84,7 +84,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
  testRunner.And("\'specflow\' has been found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 7
- testRunner.When("I click on the 1 search result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I click on the 1 Search result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
  testRunner.Then("SpecFlow Main Page is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

@@ -9,20 +9,20 @@ namespace Steps
     [Given(@"([a-zA-Z\s]+) is opened")]
     public void OpenPage(string pageName)
     {
-      _pages.Value.GetPage(pageName).OpenPage();
+      _pages.GetPage(pageName).OpenPage();
     }
 
     [Given(@"'([a-zA-Z\s]+)' has been found")]
     public void SearchForAnything(string query)
     {
-      _pages.Value.GetPage(PageNames.GoogleMainPage).SendText("Search string", query);
-      _pages.Value.GetPage(PageNames.GoogleMainPage).Click("Search button");
+      _pages.GetPage(PageNames.GoogleMainPage).SendText("Search string", query);
+      _pages.GetPage(PageNames.GoogleMainPage).Click("Search button");
     }
 
-    [When(@"I click on the (\d) search result")]
-    public void ClickOnSearchResult(int resOrder)
+    [When(@"I click on the 1 ([a-zA-Z\s]+)")]
+    public void ClickOnSearchResult(string elementName)
     {
-      _pages.Value.GetPage(PageNames.GoogleSearchResultPage).ClickCollectionElement("Search results", resOrder);
+      _pages.GetPage(PageNames.GoogleSearchResultPage).Click(elementName);
     }
   }
 }
