@@ -1,15 +1,15 @@
-﻿using NUnit.Framework;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace Steps
 {
   [Binding]
   public sealed class After : Base
   {
-    [TearDown]
+    [AfterScenario(Order = 0)]
     public void DisposeAll()
     {
       _webDriver.Close();
+      _webDriver.Dispose();
     }
   }
 }

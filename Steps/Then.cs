@@ -6,7 +6,7 @@ namespace Steps
   [Binding]
   public sealed class Then : Base
   {
-    [Then(@"page with title ([a-zA-Z\s\.]+) is opened")]
+    [Then(@"page with title ([a-zA-Z\s\.\-]+) is opened")]
     public void RequestedPageIsOpened(string expectedPage)
     {
       string actualPage = _webDriver.Title;

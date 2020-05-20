@@ -86,7 +86,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.When("I click on the 1 Search result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
- testRunner.Then("page with title Behavior Driven Development for .NET is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("page with title SpecFlow - Behavior Driven Development for .NET is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

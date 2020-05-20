@@ -8,7 +8,7 @@ namespace Drivers
 {
   public class WebDriverSetup
   {
-    private static readonly IWebDriver _webDriver = null;
+    private static IWebDriver _webDriver;
     private readonly string driverName = ConfigurationManager.AppSettings["driver"];
 
     public IWebDriver GetWebDriver()
@@ -30,7 +30,9 @@ namespace Drivers
             UnhandledPromptBehavior = UnhandledPromptBehavior.Ignore
           };
           options.AddArguments("start-maximized");
-          return new ChromeDriver(driverPath, options);
+          _webDriver = new ChromeDriver(driverPath, options);
+
+          return _webDriver;
         default:
           throw new NotImplementedException($"{driverName} is an unknown web driver");
       }
