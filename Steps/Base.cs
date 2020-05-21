@@ -1,4 +1,5 @@
 ﻿using Drivers;
+using Extensions;
 using Extensions.Pages.Base;
 using Extensions.Pages.Factory;
 using OpenQA.Selenium;
@@ -11,10 +12,12 @@ namespace Steps
   {
     protected static IWebDriver _webDriver = null;
     protected PagesFactory _pages = null;
+    protected PageObjectManager _poManager = null;
 
     public Base()
     {
       _webDriver = new WebDriverSetup().GetWebDriver();
+      _poManager = new PageObjectManager();
       _pages = CreatePages();
     }
 
@@ -23,9 +26,9 @@ namespace Steps
       PagesFactory factory = new PagesFactory();
       factory.InitializePages(new IPagePrototype[]
       {
-        new GoogleMainPage(_webDriver),
-        new GoogleSearchResultPage(_webDriver),
-        new SpecflowMainPage(_webDriver)
+        new GoogleMainPage(_webDriver, _poManager),
+        new GoogleSearchResultPage(_webDriver, _poManager),
+        new SpecflowMainPage(_webDriver, _poManager)
       });
 
       return factory;

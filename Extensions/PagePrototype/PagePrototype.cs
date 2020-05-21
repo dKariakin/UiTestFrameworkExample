@@ -7,15 +7,18 @@ namespace Extensions.Pages.Base
 {
   public abstract class PagePrototype : IPagePrototype
   {
-    protected IWebDriver _webDriver;
-    protected WebDriverWait _driverWaiter;
+    protected static IWebDriver _webDriver;
+    protected static WebDriverWait _driverWaiter;
     private Dictionary<string, IWebElement> _elements;
+    private Dictionary<string, string> _pageTransitions;
+    private PageObjectManager _pageObjectManager;
     private string _pageUrl;
     private string _pageObjectName;
 
-    protected PagePrototype(IWebDriver webDriver)
+    protected PagePrototype(IWebDriver webDriver, PageObjectManager pageManager)
     {
       _webDriver = webDriver;
+      _pageObjectManager = pageManager;
       _driverWaiter = new WebDriverWait(_webDriver, new TimeSpan(0, 0, 3));
     }
 
@@ -90,10 +93,47 @@ namespace Extensions.Pages.Base
       _pageUrl = url;
     }
 
-    public virtual void Click(string elementName)
+    protected void SetPageTransitions((string, string)[] transitions)
+    {
+      _pageTransitions = new Dictionary<string, string>();
+
+      foreach((string, string) transition in transitions)
+      {
+        _pageTransitions.Add(transition.Item1, transition.Item2);
+      }
+    }
+
+    /// <summary>
+    /// Get a name of page according to specified transitions
+    /// </summary>
+    /// <param name="clickedElement">Name of element we click on</param>
+    /// <returns>Name of new page object (or current if transition doesn't needed)</returns>
+    public virtual string GetNextPageName(string clickedElement)
+    {
+      if (_pageTransitions.ContainsKey(clickedElement.ToLower()))
+      {
+        return _pageTransitions[clickedElement.ToLower()];
+      }
+      else
+      {
+        return GetPageObjectName();
+      }
+    }
+
+    /// <summary>
+    /// Method just perform click on an element on a page
+    /// </summary>
+    /// <param name="elementName">Element name we are about to click</param>
+    /// <param name="isPageChanged">Does page changes to other one?</param>
+    public virtual void Click(string elementName, bool isPageChanged = true)
     {
       Wait(elementName);
       GetElement(elementName).Click();
+
+      if(isPageChanged)
+      {
+        _pageObjectManager.CurrentPageName = GetNextPageName(elementName);
+      }
     }
 
     public virtual void SendText(string elementName, string text)
@@ -102,9 +142,13 @@ namespace Extensions.Pages.Base
       GetElement(elementName).SendKeys(text);
     }
 
+    /// <summary>
+    /// Open current page and initialize PageObjectManager with its name
+    /// </summary>
     public virtual void OpenPage()
     {
       _webDriver.Navigate().GoToUrl(GetPageUrl());
+      _pageObjectManager.CurrentPageName = GetPageObjectName();
     }
   }
 }

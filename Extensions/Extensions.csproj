@@ -45,9 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\PagePrototype.cs" />
-    <Compile Include="Base\IPagePrototype.cs" />
+    <Compile Include="PagePrototype\PagePrototype.cs" />
+    <Compile Include="PagePrototype\IPagePrototype.cs" />
     <Compile Include="Factory\PagesFactory.cs" />
+    <Compile Include="PageObjectManager\PageObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

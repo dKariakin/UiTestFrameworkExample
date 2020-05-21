@@ -1,4 +1,5 @@
-﻿using Extensions.Pages.Base;
+﻿using Extensions;
+using Extensions.Pages.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
@@ -14,7 +15,7 @@ namespace Pages.Google
     [CacheLookup]
     public IWebElement SearchButton;
 
-    public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
+    public GoogleMainPage(IWebDriver webDriver, PageObjectManager manager) : base(webDriver, manager)
     {
       PageFactory.InitElements(_webDriver, this);
       SetPageUrl("http://www.google.com");
@@ -24,6 +25,10 @@ namespace Pages.Google
       {
         ("search string", SearchString),
         ("search button", SearchButton)
+      });
+      SetPageTransitions(new (string, string)[]
+      {
+        ("search button", PageNames.GoogleSearchResultPage)
       });
     }
   }
