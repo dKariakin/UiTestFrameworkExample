@@ -56,7 +56,7 @@ namespace Extensions.Pages.Base
       }
       else
       {
-        throw new NullReferenceException($"Element {elementName} on page {GetPageObjectName()} is undefined");
+        throw new KeyNotFoundException($"Element {elementName} on page {GetPageObjectName()} is undefined");
       }
     }
 
@@ -85,9 +85,26 @@ namespace Extensions.Pages.Base
       _pageObjectName = name;
     }
 
-    protected void SetPageUrl(string url)
+    protected virtual void SetPageUrl(string url)
     {
       _pageUrl = url;
+    }
+
+    public virtual void Click(string elementName)
+    {
+      Wait(elementName);
+      GetElement(elementName).Click();
+    }
+
+    public virtual void SendText(string elementName, string text)
+    {
+      Wait(elementName);
+      GetElement(elementName).SendKeys(text);
+    }
+
+    public virtual void OpenPage()
+    {
+      _webDriver.Navigate().GoToUrl(GetPageUrl());
     }
   }
 }

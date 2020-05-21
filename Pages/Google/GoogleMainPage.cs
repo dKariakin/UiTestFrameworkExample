@@ -1,11 +1,10 @@
-﻿using Actions;
-using Extensions.Pages.Base;
+﻿using Extensions.Pages.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
-  public sealed class GoogleMainPage : BasicActions, IPagePrototype, IBasicActions
+  public sealed class GoogleMainPage : PagePrototype, IPagePrototype
   {
     [FindsBy(How = How.Name, Using = "q")]
     [CacheLookup]

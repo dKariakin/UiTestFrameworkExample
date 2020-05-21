@@ -1,5 +1,5 @@
-﻿using Actions;
-using Drivers;
+﻿using Drivers;
+using Extensions.Pages.Base;
 using Extensions.Pages.Factory;
 using OpenQA.Selenium;
 using Pages.Google;
@@ -20,12 +20,15 @@ namespace Steps
 
     private PagesFactory CreatePages()
     {
-      return new PagesFactory(new IBasicActions[]
+      PagesFactory factory = new PagesFactory();
+      factory.InitializePages(new IPagePrototype[]
       {
         new GoogleMainPage(_webDriver),
         new GoogleSearchResultPage(_webDriver),
         new SpecflowMainPage(_webDriver)
       });
+
+      return factory;
     }
   }
 }

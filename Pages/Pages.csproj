@@ -122,10 +122,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Actions\Actions.csproj">
-      <Project>{A34900E1-9D5E-4B31-9133-97AF6CDEB504}</Project>
-      <Name>Actions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Drivers\Drivers.csproj">
       <Project>{E20BAF8C-2406-4A0E-8B8E-C0AB55EB7E97}</Project>
       <Name>Drivers</Name>
