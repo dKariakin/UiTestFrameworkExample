@@ -72,6 +72,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Timeouts\TimeoutConfigElement.cs" />
+    <Compile Include="Configuration\Timeouts\TimeoutsCollection.cs" />
+    <Compile Include="Configuration\Timeouts\TimeoutsConfigSection.cs" />
+    <Compile Include="WebDriverConfigManager.cs" />
     <Compile Include="WebDriverSetup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Drivers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -11,7 +12,7 @@ namespace Extensions.Pages.Base
     protected static WebDriverWait _driverWaiter;
     private Dictionary<string, IWebElement> _elements;
     private Dictionary<string, string> _pageTransitions;
-    private PageObjectManager _pageObjectManager;
+    private readonly PageObjectManager _pageObjectManager;
     private string _pageUrl;
     private string _pageObjectName;
 
@@ -19,7 +20,7 @@ namespace Extensions.Pages.Base
     {
       _webDriver = webDriver;
       _pageObjectManager = pageManager;
-      _driverWaiter = new WebDriverWait(_webDriver, new TimeSpan(0, 0, 3));
+      _driverWaiter = new WebDriverWait(_webDriver, WebDriverConfigManager.GetTimeout());
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ namespace Extensions.Pages.Base
     {
       _pageTransitions = new Dictionary<string, string>();
 
-      foreach((string, string) transition in transitions)
+      foreach ((string, string) transition in transitions)
       {
         _pageTransitions.Add(transition.Item1, transition.Item2);
       }
@@ -130,7 +131,7 @@ namespace Extensions.Pages.Base
       Wait(elementName);
       GetElement(elementName).Click();
 
-      if(isPageChanged)
+      if (isPageChanged)
       {
         _pageObjectManager.CurrentPageName = GetNextPageName(elementName);
       }
