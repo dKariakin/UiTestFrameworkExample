@@ -1,11 +1,11 @@
-﻿namespace Extensions.Pages.Base
+﻿using Extensions.PageManager;
+
+namespace Extensions.Pages.Base
 {
-  public interface IPagePrototype
+  public interface IPagePrototype : IPageObjectManager
   {
-    string GetPageObjectName();
     void Click(string elementName, bool isPageChanged = true);
     void OpenPage();
     void SendText(string elementName, string text);
-    string GetNextPageName(string elementClicked);
   }
 }

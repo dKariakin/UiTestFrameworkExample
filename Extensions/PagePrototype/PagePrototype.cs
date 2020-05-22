@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using Drivers;
+using Extensions.PageManager;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace Extensions.Pages.Base
 {
-  public abstract class PagePrototype : IPagePrototype
+  public abstract class PagePrototype : PageObjectManager, IPagePrototype
   {
     protected static IWebDriver _webDriver;
     protected static WebDriverWait _driverWaiter;
     private Dictionary<string, IWebElement> _elements;
-    private Dictionary<string, string> _pageTransitions;
-    private readonly PageObjectManager _pageObjectManager;
     private string _pageUrl;
-    private string _pageObjectName;
 
-    protected PagePrototype(IWebDriver webDriver, PageObjectManager pageManager)
+    protected PagePrototype(IWebDriver webDriver)
     {
       _webDriver = webDriver;
-      _pageObjectManager = pageManager;
       _driverWaiter = new WebDriverWait(_webDriver, WebDriverConfigManager.GetTimeout());
     }
 
@@ -76,49 +73,9 @@ namespace Extensions.Pages.Base
       }
     }
 
-    /// <summary>
-    /// Get current page object name
-    /// </summary>
-    public string GetPageObjectName()
-    {
-      return _pageObjectName;
-    }
-
-    protected void SetPageObjectName(string name)
-    {
-      _pageObjectName = name;
-    }
-
     protected virtual void SetPageUrl(string url)
     {
       _pageUrl = url;
-    }
-
-    protected void SetPageTransitions((string, string)[] transitions)
-    {
-      _pageTransitions = new Dictionary<string, string>();
-
-      foreach ((string, string) transition in transitions)
-      {
-        _pageTransitions.Add(transition.Item1, transition.Item2);
-      }
-    }
-
-    /// <summary>
-    /// Get a name of page according to specified transitions
-    /// </summary>
-    /// <param name="clickedElement">Name of element we click on</param>
-    /// <returns>Name of new page object (or current if transition doesn't needed)</returns>
-    public virtual string GetNextPageName(string clickedElement)
-    {
-      if (_pageTransitions.ContainsKey(clickedElement.ToLower()))
-      {
-        return _pageTransitions[clickedElement.ToLower()];
-      }
-      else
-      {
-        return GetPageObjectName();
-      }
     }
 
     /// <summary>
@@ -133,7 +90,7 @@ namespace Extensions.Pages.Base
 
       if (isPageChanged)
       {
-        _pageObjectManager.CurrentPageName = GetNextPageName(elementName);
+        CurrentPageName = GetNextPageName(elementName);
       }
     }
 
@@ -149,7 +106,7 @@ namespace Extensions.Pages.Base
     public virtual void OpenPage()
     {
       _webDriver.Navigate().GoToUrl(GetPageUrl());
-      _pageObjectManager.CurrentPageName = GetPageObjectName();
+      CurrentPageName = GetPageObjectName();
     }
   }
 }
