@@ -1,4 +1,4 @@
-﻿using Drivers;
+﻿using Drivers.Builder;
 using Extensions.Pages.Base;
 using Extensions.Pages.Factory;
 using OpenQA.Selenium;
@@ -14,8 +14,18 @@ namespace Steps
 
     public Base()
     {
-      _webDriver = new WebDriverSetup().GetWebDriver();
+      _webDriver = InitializeWebDriver();
       _pages = CreatePages();
+    }
+
+    private IWebDriver InitializeWebDriver()
+    {
+      DriverCreator creator = new DriverCreator(new ChromeBuilder());
+      creator.SetAcceptInsecureCertificates(true);
+      creator.SetPageLoadStrategy(PageLoadStrategy.Eager);
+      creator.SetUnhandledPromptBehavior(UnhandledPromptBehavior.Ignore);
+      creator.SetArguments(new string[] { "start-maximized" });
+      return creator.GetWebDriver();
     }
 
     private PagesFactory CreatePages()
