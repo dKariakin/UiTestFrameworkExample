@@ -76,12 +76,15 @@
     <Compile Include="Builder\DriverCreator.cs" />
     <Compile Include="Builder\FireFoxBuilder.cs" />
     <Compile Include="Builder\IDriverBuilder.cs" />
-    <Compile Include="Builder\ExplorerBuilder.cs" />
     <Compile Include="Builder\OperaBuilder.cs" />
+    <Compile Include="Configuration\Drivers\DriverConfigElement.cs" />
+    <Compile Include="Configuration\Drivers\DriversCollection.cs" />
+    <Compile Include="Configuration\Drivers\DriversConfigSection.cs" />
     <Compile Include="Configuration\Timeouts\TimeoutConfigElement.cs" />
     <Compile Include="Configuration\Timeouts\TimeoutsCollection.cs" />
     <Compile Include="Configuration\Timeouts\TimeoutsConfigSection.cs" />
     <Compile Include="Manager\WebDriverConfigManager.cs" />
+    <Compile Include="WebDriverConfigParameters.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

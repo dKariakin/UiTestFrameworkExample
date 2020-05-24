@@ -24,7 +24,6 @@ namespace Steps
       creator.SetAcceptInsecureCertificates(true);
       creator.SetPageLoadStrategy(PageLoadStrategy.Eager);
       creator.SetUnhandledPromptBehavior(UnhandledPromptBehavior.Ignore);
-      creator.SetArguments(new string[] { "start-maximized" });
       return creator.GetWebDriver();
     }
 
