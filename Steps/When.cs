@@ -16,14 +16,14 @@ namespace Steps
     [Given(@"'([a-zA-Z\s]+)' has been found")]
     public void SearchForAnything(string query)
     {
-      _pages.GetPage<IPagePrototype>(PageObjectManager.CurrentPageName).SendText("Search string", query);
-      _pages.GetPage<IPagePrototype>(PageObjectManager.CurrentPageName).Click("Search button");
+      _pages.GetPage(PageObjectManager.CurrentPageName).SendText("Search string", query);
+      _pages.GetPage(PageObjectManager.CurrentPageName).Click("Search button");
     }
 
     [When(@"I click on the 1 ([a-zA-Z\s]+)")]
     public void ClickOnSearchResult(string elementName)
     {
-      _pages.GetPage<IPagePrototype>(PageObjectManager.CurrentPageName).Click(elementName);
+      _pages.GetPage(PageObjectManager.CurrentPageName).Click(elementName);
     }
   }
 }

@@ -14,8 +14,17 @@ namespace Extensions.Pages.Base
     private Dictionary<string, IWebElement> _elements;
     private string _pageUrl;
 
-    protected PagePrototype(IWebDriver webDriver)
+    protected PagePrototype(IWebDriver webDriver, string pageName)
     {
+      SetPageObjectName(pageName);
+      _webDriver = webDriver;
+      _driverWaiter = new WebDriverWait(_webDriver, WebDriverConfigManager.GetTimeout());
+    }
+
+    protected PagePrototype(IWebDriver webDriver, string pageName, string pageUrl)
+    {
+      SetPageObjectName(pageName);
+      SetPageUrl(pageUrl);
       _webDriver = webDriver;
       _driverWaiter = new WebDriverWait(_webDriver, WebDriverConfigManager.GetTimeout());
     }

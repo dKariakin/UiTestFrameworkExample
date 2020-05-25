@@ -14,11 +14,9 @@ namespace Pages.Google
     [CacheLookup]
     public IWebElement SearchButton;
 
-    public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
+    public GoogleMainPage(IWebDriver webDriver) : base(webDriver, PageNames.GoogleMainPage, "http://www.google.com")
     {
       PageFactory.InitElements(_webDriver, this);
-      SetPageUrl("http://www.google.com");
-      SetPageObjectName(PageNames.GoogleMainPage);
       
       SetElements(new (string, IWebElement)[]
       {

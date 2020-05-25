@@ -84,7 +84,7 @@
     <Compile Include="Configuration\Timeouts\TimeoutsCollection.cs" />
     <Compile Include="Configuration\Timeouts\TimeoutsConfigSection.cs" />
     <Compile Include="Manager\WebDriverConfigManager.cs" />
-    <Compile Include="WebDriverConfigParameters.cs" />
+    <Compile Include="Configuration\WebDriverConfigParameters.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

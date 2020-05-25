@@ -6,30 +6,31 @@ namespace Extensions.Pages.Factory
 {
   public class PagesFactory
   {
-    private static object _pages;
+    private static Dictionary<string, IPagePrototype> _pages = new Dictionary<string, IPagePrototype>();
 
     public void InitializePages<T>(T[] basePages) where T : IPagePrototype
     {
-      _pages = new Dictionary<string, T>();
-
       foreach (T page in basePages)
       {
-        (_pages as Dictionary<string, T>).Add(page.GetPageObjectName(), page);
+        _pages.Add(page.GetPageObjectName(), page);
       }
     }
 
     public T GetPage<T>(string pageName) where T : IPagePrototype
     {
-      var pages = _pages as Dictionary<string, T>;
-
-      if (pages.ContainsKey(pageName))
+      if (_pages.ContainsKey(pageName))
       {
-        return pages[pageName];
+        return (T)_pages[pageName];
       }
       else
       {
         throw new NullReferenceException($"Page {pageName} is undefined");
       }
+    }
+
+    public IPagePrototype GetPage(string pageName)
+    {
+      return GetPage<IPagePrototype>(pageName);
     }
   }
 }

@@ -10,26 +10,29 @@ namespace Steps
   public abstract class Base
   {
     protected static IWebDriver _webDriver = null;
-    protected PagesFactory _pages = null;
+    protected static PagesFactory _pages = null;
 
     public Base()
     {
       _webDriver = InitializeWebDriver();
-      _pages = CreatePages();
+      _pages = _pages ?? CreatePages();
     }
 
     private IWebDriver InitializeWebDriver()
     {
       DriverCreator creator = new DriverCreator(new ChromeBuilder());
+
       creator.SetAcceptInsecureCertificates(true);
       creator.SetPageLoadStrategy(PageLoadStrategy.Eager);
       creator.SetUnhandledPromptBehavior(UnhandledPromptBehavior.Ignore);
+
       return creator.GetWebDriver();
     }
 
     private PagesFactory CreatePages()
     {
       PagesFactory factory = new PagesFactory();
+
       factory.InitializePages(new IPagePrototype[]
       {
         new GoogleMainPage(_webDriver),
