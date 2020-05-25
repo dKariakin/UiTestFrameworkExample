@@ -1,0 +1,12 @@
+﻿{
+  "stepAssemblies": [
+    { "assembly": "Steps" }
+  ],
+  "unitTestProvider": "nunit",
+  "bindingCulture": {
+    "language": "en-us"
+  },
+  "language": {
+    "feature": "en-us"
+  }
+}
