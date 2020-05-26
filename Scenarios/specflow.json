@@ -2,7 +2,9 @@
   "stepAssemblies": [
     { "assembly": "Steps" }
   ],
-  "unitTestProvider": "nunit",
+  "unitTestProvider": {
+    "name": "NUnit" 
+  },
   "bindingCulture": {
     "language": "en-us"
   },
