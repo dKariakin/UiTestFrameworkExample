@@ -27,11 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Steps\Steps.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Target Name="AfterUpdateFeatureFilesInProject">
     <ItemGroup>
       <Compile Include="**\*.feature.cs" Exclude="@(Compile)">
