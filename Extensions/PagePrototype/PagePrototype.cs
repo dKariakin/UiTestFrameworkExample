@@ -58,6 +58,10 @@ namespace Extensions.Pages.Base
       }
     }
 
+    /// <summary>
+    /// Get IWebElement from dictionary of page elements
+    /// </summary>
+    /// <param name="elementName">Element name in the dictionary</param>
     protected IWebElement GetElement(string elementName)
     {
       if (_elements.ContainsKey(elementName.ToLower()))
@@ -82,6 +86,9 @@ namespace Extensions.Pages.Base
       }
     }
 
+    /// <summary>
+    /// Initialize current page object url
+    /// </summary>
     protected virtual void SetPageUrl(string url)
     {
       _pageUrl = url;

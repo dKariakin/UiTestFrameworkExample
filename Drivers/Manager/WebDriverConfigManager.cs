@@ -11,6 +11,10 @@ namespace Drivers
   {
     private static IConfigurationRoot _config;
 
+    /// <summary>
+    /// Get timeout specified in appsettings.json
+    /// </summary>
+    /// <param name="timeoutName"></param>
     public static TimeSpan GetTimeout(string timeoutName = "default")
     {
       int timeout = 5;
@@ -23,6 +27,12 @@ namespace Drivers
       return TimeSpan.FromSeconds(timeout);
     }
 
+    /// <summary>
+    /// Get a parameter from appsettings.json specified for a web driver
+    /// </summary>
+    /// <param name="driverName">Driver name specified in DriverName parameter</param>
+    /// <param name="parameter">Arguments / BinaryLocation / BrowserVersion / PlatformName </param>
+    /// <returns></returns>
     public static string GetDriverConfiguration(string driverName, string parameter)
     {
       DriverConfigModel[] driverConfigs = GetConfig().GetSection(DriverConfigModel.Drivers)
@@ -52,6 +62,10 @@ namespace Drivers
       return null;
     }
 
+    /// <summary>
+    /// Get list of parameters specified in appsettings.json
+    /// </summary>
+    /// <param name="driverName">Driver name specified in DriverName parameter</param>
     public static string[] GetDriverArgument(string driverName)
     {
       string arguments = GetDriverConfiguration(driverName, WebDriverConfigParameters.Arguments);
