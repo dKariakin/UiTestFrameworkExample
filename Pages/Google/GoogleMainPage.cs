@@ -1,4 +1,5 @@
-﻿using Extensions.Pages.Base;
+﻿using System;
+using Extensions.Pages.Base;
 using OpenQA.Selenium;
 
 namespace Pages.Google
@@ -11,10 +12,10 @@ namespace Pages.Google
 
     public GoogleMainPage(IWebDriver webDriver) : base(webDriver, PageNames.GoogleMainPage, "http://www.google.com")
     {
-      SetElements(new (string, IWebElement)[]
+      SetElements(new (string, Func<IWebElement>)[]
       {
-        ("search string", SearchString),
-        ("search button", SearchButton)
+        ("search string", () => SearchString),
+        ("search button", () => SearchButton)
       });
       SetPageTransitions(new (string, string)[]
       {

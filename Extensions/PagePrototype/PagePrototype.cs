@@ -11,7 +11,7 @@ namespace Extensions.Pages.Base
   {
     protected static IWebDriver _webDriver;
     protected static WebDriverWait _driverWaiter;
-    private Dictionary<string, IWebElement> _elements;
+    private Dictionary<string, Func<IWebElement>> _elements;
     private string _pageUrl;
 
     protected PagePrototype(IWebDriver webDriver, string pageName)
@@ -45,14 +45,14 @@ namespace Extensions.Pages.Base
     /// Initialize dictionary of elements with collection of those
     /// </summary>
     /// <param name="elementCollection">Element name - element</param>
-    protected void SetElements((string, IWebElement)[] elementCollection)
+    protected void SetElements((string, Func<IWebElement>)[] elementCollection)
     {
       if (_elements == null)
       {
-        _elements = new Dictionary<string, IWebElement>();
+        _elements = new Dictionary<string, Func<IWebElement>>();
       }
 
-      foreach ((string, IWebElement) element in elementCollection)
+      foreach ((string, Func<IWebElement>) element in elementCollection)
       {
         _elements.Add(element.Item1, element.Item2);
       }
@@ -62,7 +62,7 @@ namespace Extensions.Pages.Base
     {
       if (_elements.ContainsKey(elementName.ToLower()))
       {
-        return _elements[elementName.ToLower()];
+        return _elements[elementName.ToLower()].Invoke();
       }
       else
       {
