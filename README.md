@@ -1,6 +1,5 @@
 # framework-.net-example
 
-Here is just a simple example of test automation framework for web UI testing.
 What do we use here?
 -
 1. .NET Core 
