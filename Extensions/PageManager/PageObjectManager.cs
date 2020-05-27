@@ -4,9 +4,9 @@ namespace Extensions.PageManager
 {
   public class PageObjectManager
   {
-    private Dictionary<string, string> _pageTransitions;
     public static string CurrentPageName { get; set; }
     private string _pageObjectName;
+    private Dictionary<string, string> _pageTransitions;
 
     protected void SetPageTransitions((string, string)[] transitions)
     {
