@@ -1,43 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using Drivers.Configuration.Drivers;
 using Drivers.Configuration.Timeouts;
+using Microsoft.Extensions.Configuration;
 
 namespace Drivers
 {
-  public abstract class WebDriverConfigManager
+  public class WebDriverConfigManager
   {
+    private static IConfigurationRoot _config;
+
     public static TimeSpan GetTimeout(string timeoutName = "default")
     {
       int timeout = 5;
-      TimeoutsCollection timeouts = ((TimeoutsConfigSection)ConfigurationManager.GetSection("TimeoutsSection"))
-                                                                                .Timeouts;
-      foreach (TimeoutConfigElement timeoutElement in timeouts)
-      {
-        if (timeoutElement.Name == timeoutName)
-        {
-          timeout = timeoutElement.Time;
-        }
-      }
+      TimeoutConfigModel[] timeoutConfig = GetConfig().GetSection(TimeoutConfigModel.Timeouts)
+                                                      .Get<TimeoutConfigModel[]>();
+
+      TimeoutConfigModel confElement = timeoutConfig.FirstOrDefault(x => x.Name == timeoutName);
+      int.TryParse(confElement?.Time, out timeout);
+
       return TimeSpan.FromSeconds(timeout);
     }
 
     public static string GetDriverConfiguration(string driverName, string parameter)
     {
-      DriversCollection drivers = ((DriversConfigSection)ConfigurationManager.GetSection("DriversSection"))
-                                                                             .Drivers;
+      DriverConfigModel[] driverConfigs = GetConfig().GetSection(DriverConfigModel.Drivers)
+                                                     .Get<DriverConfigModel[]>();
 
-      foreach (DriverConfigElement driver in drivers)
+      foreach (DriverConfigModel configElement in driverConfigs)
       {
-        if (driver.DriverName.ToUpper() == driverName.ToUpper())
+        if (configElement.DriverName.ToUpper() == driverName.ToUpper())
         {
           Dictionary<string, string> configMapper = new Dictionary<string, string>()
           {
-            { WebDriverConfigParameters.Arguments, driver.Arguments },
-            { WebDriverConfigParameters.BinaryLocation, driver.BinaryLocation },
-            { WebDriverConfigParameters.BrowserVersion,driver.BrowserVersion },
-            { WebDriverConfigParameters.PlatformName, driver.PlatformName }
+            { WebDriverConfigParameters.Arguments, configElement.Arguments },
+            { WebDriverConfigParameters.BinaryLocation, configElement.BinaryLocation },
+            { WebDriverConfigParameters.BrowserVersion,configElement.BrowserVersion },
+            { WebDriverConfigParameters.PlatformName, configElement.PlatformName }
           };
           if (configMapper.ContainsKey(parameter))
           {
@@ -55,7 +55,13 @@ namespace Drivers
     public static string[] GetDriverArgument(string driverName)
     {
       string arguments = GetDriverConfiguration(driverName, WebDriverConfigParameters.Arguments);
-      return arguments.Split(',');
+      return arguments.Split(';');
+    }
+
+    private static IConfigurationRoot GetConfig()
+    {
+      _config ??= new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+      return _config;
     }
   }
 }

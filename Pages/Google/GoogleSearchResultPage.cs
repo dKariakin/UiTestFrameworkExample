@@ -1,22 +1,18 @@
-﻿using Extensions.Pages.Base;
+﻿using System;
+using Extensions.Pages.Base;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 
 namespace Pages.Google
 {
   public sealed class GoogleSearchResultPage : PagePrototype, IPagePrototype
   {
-    // put element description here
-    [FindsBy(How = How.XPath, Using = "//div[@id='res']//div[@class='r']//h3")]
-    public IWebElement searchResults;
+    public IWebElement SearchResults => _webDriver.FindElement(By.XPath("//div[@id='res']//div[@class='r']//h3"));
 
     public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver, PageNames.GoogleSearchResultPage)
     {
-      PageFactory.InitElements(_webDriver, this);
-
-      SetElements(new (string, IWebElement)[]
+      SetElements(new (string, Func<IWebElement>)[]
       {
-        ("search result", searchResults)
+        ("search result", () => SearchResults)
       });
       SetPageTransitions(new (string, string)[]
       {

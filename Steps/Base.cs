@@ -15,7 +15,7 @@ namespace Steps
     public Base()
     {
       _webDriver = InitializeWebDriver();
-      _pages = _pages ?? CreatePages();
+      _pages ??= CreatePages();
     }
 
     private IWebDriver InitializeWebDriver()
