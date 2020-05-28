@@ -1,7 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
 
 namespace Drivers.Builder
 {
@@ -9,12 +7,14 @@ namespace Drivers.Builder
   {
     private readonly ChromeOptions _options;
     private static ChromeDriver _driver;
+    private string _driverPath;
 
     public ChromeBuilder()
     {
       string driverName = "ChromeDriver";
-      new DriverManager().SetUpDriver(new ChromeConfig());
+
       _options = new ChromeOptions();
+      _driverPath = null;
 
       SetArguments(WebDriverConfigManager.GetDriverArgument(driverName));
       SetBinaryLocation(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.BinaryLocation));
@@ -24,7 +24,8 @@ namespace Drivers.Builder
 
     public IWebDriver GetWebDriver()
     {
-      _driver ??= new ChromeDriver(_options);
+      
+      _driver ??= new ChromeDriver(_driverPath, _options);
       return _driver;
     }
 
@@ -45,13 +46,13 @@ namespace Drivers.Builder
 
     public void SetArguments(string[] arguments)
     {
-      if(arguments != null)
-      {
-        _options.AddArguments(arguments);
-      }
+      _options.AddArguments(arguments);
     }
 
-    public void SetBinaryLocation(string location) { }
+    public void SetBinaryLocation(string location)
+    {
+      _driverPath = location;
+    }
 
     public void SetPageLoadStrategy(PageLoadStrategy strategy)
     {
