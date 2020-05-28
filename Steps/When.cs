@@ -13,7 +13,7 @@ namespace Steps
       _pages.GetPage<IPagePrototype>(pageName).OpenPage();
     }
 
-    [Given(@"'([a-zA-Z\s]+)' has been found")]
+    [Given(@"'([a-zA-Z\s\d]+)' has been found")]
     public void SearchForAnything(string query)
     {
       _pages.GetPage(PageObjectManager.CurrentPageName).SendText("Search string", query);
