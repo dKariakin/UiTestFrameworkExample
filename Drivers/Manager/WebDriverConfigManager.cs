@@ -69,7 +69,7 @@ namespace Drivers
     public static string[] GetDriverArgument(string driverName)
     {
       string arguments = GetDriverConfiguration(driverName, WebDriverConfigParameters.Arguments);
-      return arguments.Split(';');
+      return arguments?.Split(';');
     }
 
     private static IConfigurationRoot GetConfig()

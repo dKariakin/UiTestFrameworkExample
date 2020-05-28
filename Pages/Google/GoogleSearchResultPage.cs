@@ -6,7 +6,7 @@ namespace Pages.Google
 {
   public sealed class GoogleSearchResultPage : PagePrototype, IPagePrototype
   {
-    public IWebElement SearchResults => _webDriver.FindElement(By.XPath("//div[@id='res']//div[@class='r']//h3"));
+    public IWebElement SearchResults => _webDriver.FindElement(By.CssSelector("#rso h3:first-of-type"));
 
     public GoogleSearchResultPage(IWebDriver webDriver) : base(webDriver, PageNames.GoogleSearchResultPage)
     {

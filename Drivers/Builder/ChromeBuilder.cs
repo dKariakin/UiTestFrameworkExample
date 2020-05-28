@@ -46,7 +46,10 @@ namespace Drivers.Builder
 
     public void SetArguments(string[] arguments)
     {
-      _options.AddArguments(arguments);
+      if (arguments != null)
+      {
+         _options.AddArguments(arguments);
+      }
     }
 
     public void SetBinaryLocation(string location)
