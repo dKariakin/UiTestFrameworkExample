@@ -23,6 +23,7 @@ namespace Drivers.Builder
     public IWebDriver GetWebDriver()
     {
       _driver ??= new OperaDriver(_driverPath, _options);
+
       return _driver;
     }
 
