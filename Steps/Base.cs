@@ -9,8 +9,8 @@ namespace Steps
 {
   public abstract class Base
   {
-    protected static IWebDriver _webDriver = null;
-    protected static PagesFactory _pages = null;
+    protected static IWebDriver _webDriver;
+    protected static PagesFactory _pages;
 
     public Base()
     {

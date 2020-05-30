@@ -14,25 +14,28 @@ namespace Drivers
     /// <summary>
     /// Get timeout specified in appsettings.json
     /// </summary>
-    /// <param name="timeoutName"></param>
     public static TimeSpan GetTimeout(string timeoutName = "default")
     {
-      int timeout = 5;
+      int defaultTimeout = 5;
       TimeoutConfigModel[] timeoutConfig = GetConfig().GetSection(TimeoutConfigModel.Timeouts)
                                                       .Get<TimeoutConfigModel[]>();
 
       TimeoutConfigModel confElement = timeoutConfig.FirstOrDefault(x => x.Name == timeoutName);
-      int.TryParse(confElement?.Time, out timeout);
-
-      return TimeSpan.FromSeconds(timeout);
+      if(int.TryParse(confElement?.Time, out int timeout))
+      {
+        return TimeSpan.FromSeconds(timeout);
+      }
+      else
+      {
+        return TimeSpan.FromSeconds(defaultTimeout);
+      }
     }
 
     /// <summary>
     /// Get a parameter from appsettings.json specified for a web driver
     /// </summary>
-    /// <param name="driverName">Driver name specified in DriverName parameter</param>
-    /// <param name="parameter">Arguments / BinaryLocation / BrowserVersion / PlatformName </param>
-    /// <returns></returns>
+    /// <param name="driverName">ChromeDriver / FirefoxDriver / OperaDriver</param>
+    /// <param name="driverName">Driver name specified in DriverName parameter (ChromeDriver / FirefoxDriver / OperaDriver)</param>
     public static string GetDriverConfiguration(string driverName, string parameter)
     {
       DriverConfigModel[] driverConfigs = GetConfig().GetSection(DriverConfigModel.Drivers)
@@ -51,7 +54,14 @@ namespace Drivers
           };
           if (configMapper.ContainsKey(parameter))
           {
-            return configMapper[parameter];
+            try
+            {
+              return configMapper[parameter];
+            }
+            catch(NullReferenceException)
+            {
+              return null;
+            }
           }
           else
           {
@@ -65,16 +75,16 @@ namespace Drivers
     /// <summary>
     /// Get list of parameters specified in appsettings.json
     /// </summary>
-    /// <param name="driverName">Driver name specified in DriverName parameter</param>
+    /// <param name="driverName">Driver name specified in DriverName parameter (ChromeDriver / FirefoxDriver / OperaDriver)</param>
     public static string[] GetDriverArgument(string driverName)
     {
-      string arguments = GetDriverConfiguration(driverName, WebDriverConfigParameters.Arguments);
-      return arguments.Split(';');
+      return GetDriverConfiguration(driverName, WebDriverConfigParameters.Arguments)?.Split(';');
     }
 
     private static IConfigurationRoot GetConfig()
     {
       _config ??= new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
       return _config;
     }
   }
