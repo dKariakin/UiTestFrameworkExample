@@ -1,6 +1,7 @@
 ﻿{
   "stepAssemblies": [
-    { "assembly": "Steps" }
+    { "assembly": "Steps" },
+    { "assembly": "Allure.SpecFlowPlugin" }
   ],
   "unitTestProvider": {
     "name": "NUnit" 
