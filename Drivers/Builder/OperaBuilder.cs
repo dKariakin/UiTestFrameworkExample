@@ -7,22 +7,19 @@ namespace Drivers.Builder
   {
     private readonly OperaOptions _options;
     private static OperaDriver _driver;
-    private string _driverPath;
 
     public OperaBuilder()
     {
       string driverName = "OperaDriver";
       _options = new OperaOptions();
-      _driverPath = null;
-
+      
       SetArguments(WebDriverConfigManager.GetDriverArgument(driverName));
-      SetBinaryLocation(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.BinaryLocation));
       SetBrowserVersion(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.BrowserVersion));
       SetPlatformName(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.PlatformName));
     }
     public IWebDriver GetWebDriver()
     {
-      _driver ??= new OperaDriver(_driverPath, _options);
+      _driver ??= new OperaDriver(WebDriverConfigManager.GetDriverBinaryLocation(), _options);
 
       return _driver;
     }
@@ -45,11 +42,6 @@ namespace Drivers.Builder
     public void SetArguments(string[] arguments)
     {
       _options.AddArguments(arguments);
-    }
-
-    public void SetBinaryLocation(string location)
-    {
-      _driverPath = location;
     }
 
     public void SetPageLoadStrategy(PageLoadStrategy strategy)

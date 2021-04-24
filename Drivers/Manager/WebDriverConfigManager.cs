@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Drivers.Configuration.Drivers;
 using Drivers.Configuration.Timeouts;
@@ -35,7 +36,6 @@ namespace Drivers
     /// Get a parameter from appsettings.json specified for a web driver
     /// </summary>
     /// <param name="driverName">ChromeDriver / FirefoxDriver / OperaDriver</param>
-    /// <param name="driverName">Driver name specified in DriverName parameter (ChromeDriver / FirefoxDriver / OperaDriver)</param>
     public static string GetDriverConfiguration(string driverName, string parameter)
     {
       DriverConfigModel[] driverConfigs = GetConfig().GetSection(DriverConfigModel.Drivers)
@@ -48,7 +48,6 @@ namespace Drivers
           Dictionary<string, string> configMapper = new Dictionary<string, string>()
           {
             { WebDriverConfigParameters.Arguments, configElement.Arguments },
-            { WebDriverConfigParameters.BinaryLocation, configElement.BinaryLocation },
             { WebDriverConfigParameters.BrowserVersion,configElement.BrowserVersion },
             { WebDriverConfigParameters.PlatformName, configElement.PlatformName }
           };
@@ -69,6 +68,7 @@ namespace Drivers
           }
         }
       }
+
       return null;
     }
 
@@ -86,6 +86,19 @@ namespace Drivers
       _config ??= new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
       return _config;
+    }
+
+    public static string GetDriverBinaryLocation()
+    {
+      string driverPath = AppDomain.CurrentDomain.BaseDirectory;
+      
+      do
+      {
+        driverPath = Directory.GetParent(Path.GetFullPath(driverPath)).FullName;
+      }
+      while (!Directory.Exists(Path.Combine(driverPath, "Drivers")));
+      
+      return Path.Combine(driverPath, "Drivers");
     }
   }
 }

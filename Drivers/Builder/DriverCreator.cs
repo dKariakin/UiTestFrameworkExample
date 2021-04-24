@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace Drivers.Builder
 {
@@ -11,7 +9,6 @@ namespace Drivers.Builder
     public DriverCreator(IDriverBuilder driverBuilder)
     {
       _driverBuilder = driverBuilder;
-      SetBinaryLocation();
     }
 
     public IWebDriver GetWebDriver()
@@ -39,28 +36,9 @@ namespace Drivers.Builder
       _driverBuilder.SetProxy(proxy);
     }
 
-    public void SetBinaryLocation(string location = null)
-    {
-      location = location ?? GetDriverDirectory();
-      _driverBuilder.SetBinaryLocation(location);
-    }
-
     public void SetArguments(string[] arguments)
     {
       _driverBuilder.SetArguments(arguments);
-    }
-
-    private static string GetDriverDirectory()
-    {
-      string driverPath = AppDomain.CurrentDomain.BaseDirectory;
-      do
-      {
-        driverPath = Directory.GetParent(Path.GetFullPath(driverPath)).FullName;
-      }
-      while (!Directory.Exists(Path.Combine(driverPath, "Drivers")));
-      driverPath = Path.Combine(driverPath, "Drivers", "WebDriver");
-
-      return driverPath;
     }
   }
 }
