@@ -7,24 +7,21 @@ namespace Drivers.Builder
   {
     private readonly ChromeOptions _options;
     private static ChromeDriver _driver;
-    private string _driverPath;
 
     public ChromeBuilder()
     {
       string driverName = "ChromeDriver";
 
       _options = new ChromeOptions();
-      _driverPath = null;
 
       SetArguments(WebDriverConfigManager.GetDriverArgument(driverName));
-      SetBinaryLocation(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.BinaryLocation));
       SetBrowserVersion(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.BrowserVersion));
       SetPlatformName(WebDriverConfigManager.GetDriverConfiguration(driverName, WebDriverConfigParameters.PlatformName));
     }
 
     public IWebDriver GetWebDriver()
     {
-      _driver ??= new ChromeDriver(_driverPath, _options);
+      _driver ??= new ChromeDriver(WebDriverConfigManager.GetDriverBinaryLocation(), _options);
       return _driver;
     }
 
@@ -46,11 +43,6 @@ namespace Drivers.Builder
     public void SetArguments(string[] arguments)
     {
       _options.AddArguments(arguments);
-    }
-
-    public void SetBinaryLocation(string location)
-    {
-      _driverPath = location;
     }
 
     public void SetPageLoadStrategy(PageLoadStrategy strategy)

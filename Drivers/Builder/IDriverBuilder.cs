@@ -8,7 +8,6 @@ namespace Drivers.Builder
     void SetUnhandledPromptBehavior(UnhandledPromptBehavior behavior);
     void SetAcceptInsecureCertificates(bool isAccept);
     void SetProxy(Proxy proxy);
-    void SetBinaryLocation(string location);
     void SetArguments(string[] arguments);
     void SetPlatformName(string platformName);
     void SetBrowserVersion(string browserVersion);
